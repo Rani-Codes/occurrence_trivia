@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { signInWithGoogle, signOutFromGoogle } from "@/firebase/googleAuth";
 import { User } from "firebase/auth";
+import Image from 'next/image'
 
 const Auth = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -25,7 +26,16 @@ const Auth = () => {
       {user ? (
         <div>
           <p>Welcome, {user.displayName}</p>
-          <button onClick={handleSignOut}>Sign Out</button>
+          {user.photoURL && (
+            <Image
+              src={user.photoURL}
+              width={50}
+              height={50}
+              alt={`${user.displayName}'s profile picture`}
+            />
+          )
+          }
+          <button onClick={handleSignOut} className="p-4">Sign Out</button>
         </div>
       ) : (
         <button onClick={handleSignIn}>Sign In with Google</button>
