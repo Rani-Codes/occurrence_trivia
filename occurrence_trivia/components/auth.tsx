@@ -1,11 +1,26 @@
 'use client'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signInWithGoogle, signOutFromGoogle } from "@/firebase/googleAuth";
-import { User } from "firebase/auth";
+import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import Image from 'next/image'
 
 const Auth = () => {
   const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user); // User is signed in, update state
+      } else {
+        setUser(null); // User is signed out, clear state
+      }
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []);
+
 
   const handleSignIn = async () => {
     const result = await signInWithGoogle();
