@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import Image from 'next/image'
 
 export default function Navbar() {
     const pathname = usePathname()
@@ -11,32 +12,46 @@ export default function Navbar() {
 
 
     return (
-        <nav className="w-full flex justify-center mt-6 mb-20 text-white font-semibold">
-            <div className="flex justify-evenly w-4/12 bg-slate-600 p-2 rounded">
-                {(isProfilePage || isHelpPage) && (
-                    <Link
-                        href={"/"}
-                        className="hover:bg-slate-900 p-2 rounded"
-                    >
-                        Go to home page
+        <nav className="w-full h-full z-10 top-0 sticky flex mb-4 text-floralWhite font-semibold bg-eerieBlack">
+            <div className="flex justify-between items-center w-full px-4">
+                <div>
+                    <Link href={'/'}>
+                        <Image
+                            src="/logo.jpeg"
+                            width={75}
+                            height={75}
+                            alt="Picture of the author"
+                            className="rounded-3xl"
+                        />
                     </Link>
-                )}
-                {!isProfilePage && (
-                    <Link
-                        href={"/profile"}
-                        className="hover:bg-slate-900 p-2 rounded"
-                    >
-                        Go to profile page
-                    </Link>
-                )}
-                {!isHelpPage && (
-                    <Link
-                        href={"/help"}
-                        className="hover:bg-slate-900 p-2 rounded"
-                    >
-                        Go to help page
-                    </Link>
-                )}
+                </div>
+
+                <div className="flex gap-10">
+                    {(isProfilePage || isHelpPage) && (
+                        <Link
+                            href={"/"}
+                            className="hover:bg-slate-900 p-2 rounded"
+                        >
+                            Go to home page
+                        </Link>
+                    )}
+                    {!isProfilePage && (
+                        <Link
+                            href={"/profile"}
+                            className="hover:bg-slate-900 p-2 rounded"
+                        >
+                            Go to profile page
+                        </Link>
+                    )}
+                    {!isHelpPage && (
+                        <Link
+                            href={"/help"}
+                            className="hover:bg-slate-900 p-2 rounded"
+                        >
+                            Go to help page
+                        </Link>
+                    )}
+                </div>
             </div>
         </nav>
     )
