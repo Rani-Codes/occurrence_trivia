@@ -1,14 +1,16 @@
 'use client'
-
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Image from 'next/image'
+import { useAuth } from "@/hooks/useAuth"
+import GoogleBtn from "./googleBtn"
 
 export default function Navbar() {
     const pathname = usePathname()
-
     const isProfilePage = pathname?.includes("/profile")
     const isHelpPage = pathname?.includes("/help")
+
+    const { user, handleSignIn, handleSignOut, isUserSignedIn } = useAuth();
 
 
     return (
@@ -20,17 +22,17 @@ export default function Navbar() {
                             src="/logo.jpeg"
                             width={75}
                             height={75}
-                            alt="Picture of the author"
+                            alt="Site Logo"
                             className="rounded-3xl"
                         />
                     </Link>
                 </div>
 
-                <div className="flex gap-10">
+                <div className="flex gap-10 justify-center items-center">
                     {(isProfilePage || isHelpPage) && (
                         <Link
                             href={"/"}
-                            className="hover:bg-slate-900 p-2 rounded"
+                            className="hover:bg-blackOlive p-2 rounded"
                         >
                             Go to home page
                         </Link>
@@ -38,7 +40,7 @@ export default function Navbar() {
                     {!isProfilePage && (
                         <Link
                             href={"/profile"}
-                            className="hover:bg-slate-900 p-2 rounded"
+                            className="hover:bg-blackOlive p-2 rounded"
                         >
                             Go to profile page
                         </Link>
@@ -46,10 +48,36 @@ export default function Navbar() {
                     {!isHelpPage && (
                         <Link
                             href={"/help"}
-                            className="hover:bg-slate-900 p-2 rounded"
+                            className="hover:bg-blackOlive p-2 rounded"
                         >
                             Go to help page
                         </Link>
+                    )}
+                    {user ? (
+                        <div className="flex items-center gap-2">
+                            {user.photoURL && (
+                                <Image
+                                    src={user.photoURL}
+                                    width={30}
+                                    height={30}
+                                    alt={`${user.displayName}'s profile picture`}
+                                    className="rounded-full"
+                                />
+                            )}
+                            <button
+                                onClick={handleSignOut}
+                                className="hover:bg-blackOlive p-2 rounded"
+                            >
+                                Sign Out
+                            </button>
+                        </div>
+                    ) : (
+                        <button
+                            onClick={handleSignIn}
+                            className="hover:bg-blackOlive p-2 rounded"
+                        >
+                            Sign in with google
+                        </button>
                     )}
                 </div>
             </div>

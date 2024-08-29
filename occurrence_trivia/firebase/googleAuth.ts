@@ -1,4 +1,4 @@
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import { auth } from "./config";
 import { FirebaseError } from "firebase/app";
 
@@ -10,15 +10,11 @@ export const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, provider);
     
-    // Google Access Token
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential?.accessToken;
-    
-    // Signed-in user info
     const user = result.user;
-
-    // Return user information
     return { user, token};
+
   } catch (error) {
     // Handle Errors
      // Type guard to check if the error is a FirebaseError
@@ -34,16 +30,17 @@ export const signInWithGoogle = async () => {
       console.error("Unexpected error during Google sign-in", error);
     }
 
-    // You can return undefined or throw an error to be caught by the caller
     return undefined;
   }
 };
 
 // Function to sign out
 export const signOutFromGoogle = async () => {
-  try {
-    await auth.signOut();
-  } catch (error) {
+  signOut(auth).then(() => {
+    console.log('signed out successfully')
+    // Sign-out successful.
+  }).catch((error) => {
     console.error("Error signing out:", error);
-  }
+    // An error happened.
+  });
 };
