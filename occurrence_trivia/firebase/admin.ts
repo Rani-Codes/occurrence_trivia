@@ -1,27 +1,13 @@
 import admin from "firebase-admin";
-import path from "path";
 
-const serviceAccountPath = process.env.NEXT_PUBLIC_FIREBASE_SERVICE_ACCOUNT_KEY;
-
-if (!serviceAccountPath) {
-  throw new Error("Missing the FIREBASE_SERVICE_ACCOUNT_KEY environment variable.");
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert({
+      projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+      privateKey: process.env.NEXT_PUBLIC_FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+      clientEmail: process.env.NEXT_PUBLIC_FIREBASE_CLIENT_EMAIL,
+    }),
+  });
 }
 
-const serviceAccount = require(path.resolve(serviceAccountPath));
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
-
-const verifyUser = async (uid: string) => {
-    try {
-      const user = await admin.auth().getUser(uid);
-      console.log("User details:", user);
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
-
-
-export { admin, verifyUser };
-
+export { admin };
