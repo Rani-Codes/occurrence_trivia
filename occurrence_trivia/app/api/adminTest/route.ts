@@ -4,7 +4,7 @@ import { admin } from '@/firebase/admin'; // Adjust the import path as necessary
 export async function GET() {
   try {
     // For example, let's list the first user
-    const listUsersResult = await admin.auth().listUsers(1);
+    const listUsersResult = await admin.auth().listUsers(10);
     const user = listUsersResult.users[0];
 
     // Return the first user's info as a JSON response
