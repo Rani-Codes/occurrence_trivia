@@ -41,21 +41,20 @@ export default function CustomSlider() {
             '& .MuiSlider-track': {
               backgroundColor: '#eb5e28ff', // Color of the track
             },
-
           }}
       />
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography
           variant="body2"
           onClick={() => setVal(MIN)}
-          sx={{ cursor: 'pointer' }}
+          sx={{ cursor: 'pointer', fontSize: '1.25rem', fontWeight: 600 }}
         >
           January
         </Typography>
         <Typography
           variant="body2"
           onClick={() => setVal(MAX)}
-          sx={{ cursor: 'pointer' }}
+          sx={{ cursor: 'pointer', fontSize: '1.25rem', fontWeight: 600 }}
         >
           December
         </Typography>
