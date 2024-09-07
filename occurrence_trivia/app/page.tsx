@@ -1,14 +1,9 @@
-import Card from "@/components/card";
-import CostumSlider from "@/components/slider"
+import SlideShow from "@/components/slideshow";
 
 export default function Home() {
   return (
-    <main>
-      <h1>Hello World</h1>
-      <Card/>
-      <div className="flex justify-center w-full text-eerieBlack">
-        <CostumSlider/>
-      </div>
+    <main className="my-10">
+      <SlideShow/>
     </main>
   );
 }
