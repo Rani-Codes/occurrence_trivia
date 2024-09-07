@@ -4,20 +4,28 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
 
-const MAX = 12;
-const MIN = 1;
-const marks = [
-  {
-    value: MIN,
-    label: '',
-  },
-  {
-    value: MAX,
-    label: '',
-  },
-];
+interface bounds {
+  lowerBound: number
+  lowerName: string | number
+  upperBound: number
+  upperName: string | number
+}
 
-export default function CustomSlider() {
+export default function CustomSlider({ lowerBound, upperBound, lowerName, upperName }: bounds) {
+
+  const MAX = upperBound
+  const MIN = lowerBound
+  const marks = [
+    {
+      value: MIN,
+      label: '',
+    },
+    {
+      value: MAX,
+      label: '',
+    },
+  ];
+
   const [val, setVal] = React.useState<number>(MIN);
   const handleChange = (_: Event, newValue: number | number[]) => {
     setVal(newValue as number);
@@ -49,14 +57,14 @@ export default function CustomSlider() {
           onClick={() => setVal(MIN)}
           sx={{ cursor: 'pointer', fontSize: '1.25rem', fontWeight: 600 }}
         >
-          January
+          {lowerName}
         </Typography>
         <Typography
           variant="body2"
           onClick={() => setVal(MAX)}
           sx={{ cursor: 'pointer', fontSize: '1.25rem', fontWeight: 600 }}
         >
-          December
+          {upperName}
         </Typography>
       </Box>
       {/* Display value of slider, todo: change to add to submit form */}
