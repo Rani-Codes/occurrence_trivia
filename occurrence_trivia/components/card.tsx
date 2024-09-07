@@ -5,6 +5,7 @@ interface DailyChallengeData {
   timePeriod: [number, number];
   releaseTime: Timestamp;
 }
+
 const Card = ({ daily }: {daily: DailyChallengeData} ) => {
   return (
     <div className="w-full flex justify-center">

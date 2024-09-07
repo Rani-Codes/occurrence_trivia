@@ -9,9 +9,10 @@ interface bounds {
   lowerName: string | number
   upperBound: number
   upperName: string | number
+  onValueChange: (val: number) => void //Callback function prop to update parent component's val property
 }
 
-export default function CustomSlider({ lowerBound, upperBound, lowerName, upperName }: bounds) {
+export default function CustomSlider({ lowerBound, upperBound, lowerName, upperName, onValueChange }: bounds) {
 
   const MAX = upperBound
   const MIN = lowerBound
@@ -29,6 +30,11 @@ export default function CustomSlider({ lowerBound, upperBound, lowerName, upperN
   const [val, setVal] = React.useState<number>(MIN);
   const handleChange = (_: Event, newValue: number | number[]) => {
     setVal(newValue as number);
+    onValueChange(newValue as number) //where the updating happens for the parent component
+  };
+  const handleClick = (value: number) => {
+    setVal(value);
+    onValueChange(value) //updates parent component of the click value change
   };
 
   return (
@@ -44,33 +50,29 @@ export default function CustomSlider({ lowerBound, upperBound, lowerName, upperN
         sx={{
             color: '#eb5e28ff',
             '& .MuiSlider-thumb': {
-              backgroundColor: '#eb5e28ff', // Color of the thumb
+              backgroundColor: '#eb5e28ff',
             },
             '& .MuiSlider-track': {
-              backgroundColor: '#eb5e28ff', // Color of the track
+              backgroundColor: '#eb5e28ff',
             },
           }}
       />
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography
           variant="body2"
-          onClick={() => setVal(MIN)}
+          onClick={() => handleClick(MIN)}
           sx={{ cursor: 'pointer', fontSize: '1.25rem', fontWeight: 600 }}
         >
           {lowerName}
         </Typography>
         <Typography
           variant="body2"
-          onClick={() => setVal(MAX)}
+          onClick={() => handleClick(MAX)}
           sx={{ cursor: 'pointer', fontSize: '1.25rem', fontWeight: 600 }}
         >
           {upperName}
         </Typography>
       </Box>
-      {/* Display value of slider, todo: change to add to submit form */}
-      <div className='flex justify-center'>
-      Current Value: {val}
-      </div>
     </Box>
   );
 }
