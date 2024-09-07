@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Timestamp } from "firebase/firestore";
 import Card from "@/components/card";
 import CostumSlider from "@/components/slider"
+import DateChosen from "@/components/dateChosen"
 
 interface DailyChallengeData {
   image: [string, number, number, boolean];
@@ -63,7 +64,7 @@ const SlideShow = () => {
 
             <CostumSlider lowerBound={1} upperBound={12} lowerName="January" upperName="December" onValueChange={handleMonthChange}/>
             <CostumSlider lowerBound={daily.timePeriod[0]} upperBound={daily.timePeriod[1]} lowerName={daily.timePeriod[0]} upperName={daily.timePeriod[1]} onValueChange={handleYearChange}/>
-            <h3 className="text-lg">Date chosen: {month} {year}</h3>
+            <DateChosen month={month} year={year}/>
             
             <div className="my-20 text-center">
                 <h2 className="text-lg">About today's images</h2>
