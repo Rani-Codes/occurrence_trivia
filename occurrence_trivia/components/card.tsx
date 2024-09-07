@@ -51,9 +51,11 @@ const Card = () => {
           {/* Display image */}
           <img
             src={daily.image[0]}
-            alt="Challenge"
+            alt="Challenge image"
             className="mb-4 rounded-lg w-1/2 h-auto"
           />
+          <p>This image was taken in month {daily.image[1]}, {daily.image[2]} year.</p>
+          <p> Is it a real image? {daily.image[3] ? 'Yes' : 'No'}</p>
 
           {/* Display releaseTime */}
           <p>

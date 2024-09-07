@@ -59,6 +59,10 @@ export default function CustomSlider() {
           December
         </Typography>
       </Box>
+      {/* Display value of slider, todo: change to add to submit form */}
+      <div className='flex justify-center'>
+      Current Value: {val}
+      </div>
     </Box>
   );
 }
