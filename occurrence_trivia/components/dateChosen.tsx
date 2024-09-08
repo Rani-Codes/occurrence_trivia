@@ -1,3 +1,7 @@
+'use client'
+import { useState } from "react";
+import ToggleFake from "./toggleFake";
+
 
 interface bounds {
     month: number
@@ -10,12 +14,24 @@ const monthNames = [
 ];
 
 const DateChosen = ({month, year}: bounds) => {
+    const [isFake, setIsFake] = useState<boolean>(false); // State to manage switch
+    const handleToggle = (value: boolean) => {
+        setIsFake(value); // Update state when switch is toggled
+      };
+
     return (
-        <div>
-            <h3 className="text-lg">
-                Date chosen: {monthNames[month - 1]} {year}
-            </h3>
-        </div>
+        <>
+            <ToggleFake onToggle={handleToggle}/>
+            {isFake ? (
+                <h3 className="text-lg">
+                    Date chosen: Fake!
+                </h3>
+            ): (
+                <h3 className="text-lg">
+                    Date chosen: {monthNames[month - 1]} {year}
+                </h3>
+            )}
+        </>
     )
 }
 

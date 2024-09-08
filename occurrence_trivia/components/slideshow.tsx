@@ -6,7 +6,6 @@ import { Timestamp } from "firebase/firestore";
 import Card from "@/components/card";
 import CostumSlider from "@/components/slider"
 import DateChosen from "@/components/dateChosen"
-import ToggleFake from "./toggleFake";
 
 
 interface DailyChallengeData {
@@ -61,12 +60,11 @@ const SlideShow = () => {
         <>
             <h2 className="font-semibold text-2xl">Daily Challenge #1</h2>
             <Card daily={daily} /> 
-            <p>This image was taken on {daily.image[1]}, {daily.image[2]}.</p>
-            <p> Is it a real image? {daily.image[3] ? 'Yes' : 'No'}</p>
+            {/* <p>This image was taken on {daily.image[1]}, {daily.image[2]}.</p>
+            <p> Is it a real image? {daily.image[3] ? 'Yes' : 'No'}</p> */}
 
             <CostumSlider lowerBound={1} upperBound={12} lowerName="January" upperName="December" onValueChange={handleMonthChange}/>
             <CostumSlider lowerBound={daily.timePeriod[0]} upperBound={daily.timePeriod[1]} lowerName={daily.timePeriod[0]} upperName={daily.timePeriod[1]} onValueChange={handleYearChange}/>
-            <ToggleFake/>
             <DateChosen month={month} year={year}/>
 
             
