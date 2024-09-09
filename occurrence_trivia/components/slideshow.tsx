@@ -79,13 +79,20 @@ const SlideShow = () => {
         ) : daily ? (
         <>
             <h2 className="font-semibold text-2xl">Daily Challenge #1</h2>
-            <Card daily={daily} /> 
-            {/* <p>This image was taken on {daily.image[1]}, {daily.image[2]}.</p>
-            <p> Is it a real image? {daily.image[3] ? 'Yes' : 'No'}</p> */}
 
-            <CostumSlider lowerBound={1} upperBound={12} lowerName="January" upperName="December" onValueChange={handleMonthChange}/>
-            <CostumSlider lowerBound={daily.timePeriod[0]} upperBound={daily.timePeriod[1]} lowerName={daily.timePeriod[0]} upperName={daily.timePeriod[1]} onValueChange={handleYearChange}/>
-            <DateChosen month={month} year={year}/>
+            {daily.images.map((image, index) => (
+              <div key={index} className="w-full">
+                <Card image={image} /> 
+                {/* <p>This image was taken on {daily.image[1]}, {daily.image[2]}.</p>
+                <p> Is it a real image? {daily.image[3] ? 'Yes' : 'No'}</p> */}
+                <div className="w-full flex flex-col justify-center items-center">
+                  <CostumSlider lowerBound={1} upperBound={12} lowerName="January" upperName="December" onValueChange={handleMonthChange}/>
+                  <CostumSlider lowerBound={daily.timePeriod[0]} upperBound={daily.timePeriod[1]} lowerName={daily.timePeriod[0]} upperName={daily.timePeriod[1]} onValueChange={handleYearChange}/>
+                  <DateChosen month={month} year={year}/>
+                </div>
+              </div>
+            ))}
+
 
             
             <div className="my-20 text-center">
