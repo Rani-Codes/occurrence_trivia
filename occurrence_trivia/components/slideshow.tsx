@@ -1,6 +1,6 @@
 'use client'
 import { db } from "@/firebase/config"
-import { doc, getDoc } from "firebase/firestore"; 
+import { doc, getDoc, collection, getDocs } from "firebase/firestore"; 
 import { useEffect, useState } from "react";
 import { Timestamp } from "firebase/firestore";
 import Card from "@/components/card";
@@ -9,9 +9,16 @@ import DateChosen from "@/components/dateChosen"
 
 
 interface DailyChallengeData {
-  image: [string, number, number, boolean];
+  images: ImageData[]
   timePeriod: [number, number];
   releaseTime: Timestamp;
+}
+
+interface ImageData {
+  month: number
+  year: number
+  real: boolean
+  url: string
 }
 
 const SlideShow = () => {
@@ -30,25 +37,38 @@ const SlideShow = () => {
 
   const getDocument = async (docId: string) => {
     try {
+      //Parent data
       const docRef = doc(db, "dailyChallenges", docId);
       const docSnap = await getDoc(docRef);
       
-      if(docSnap.exists()) {
-        const data = docSnap.data() as DailyChallengeData;
-        setDaily(data);
-      } else {
+      if(!docSnap.exists()) {
         setError("No such document!");
+        return
       }
-    }
-   catch (error) {
-    console.error('Error fetching document:', error);
-    setError("Error fetching document");
+      const docData = docSnap.data() as Omit<DailyChallengeData, 'images'>;
+
+      //Get subcollection 'images'
+      const imagesCollectionRef = collection(docRef, "images");
+      const imagesSnap = await getDocs(imagesCollectionRef);
+
+      const images: ImageData[] = imagesSnap.docs.map(doc => doc.data() as ImageData);
+
+
+      // Combine document and subcollection data
+      setDaily({
+        ...docData,
+        images
+      });
+
+    } catch (error) {
+      console.error('Error fetching document:', error);
+      setError("Error fetching document");
     }
   };
   
   
   useEffect(() => {
-    getDocument("09-01-2024"); // Replace with desired document ID
+    getDocument("09-08-2024"); // Replace with desired document ID
   }, [])
 
 
