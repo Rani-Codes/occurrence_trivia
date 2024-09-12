@@ -4,6 +4,7 @@ import { useDailyChallenge } from "@/hooks/useDailyChallenge";
 import Card from "@/components/card";
 import CostumSlider from "@/components/slider"
 import DateChosen from "@/components/dateChosen"
+import DailyInfo from "./dailyInfo";
 
 
 const SlideShow = () => {
@@ -39,13 +40,7 @@ const SlideShow = () => {
                 </div>
               </div>
             ))}
-            
-            <div className="my-20 text-center">
-                <h2 className="text-lg">About today's images</h2>
-                <p>The release time for these images is: {daily.releaseTime.toDate().toLocaleDateString()} </p>
-                <p>The images for today are from the time period between: {daily.timePeriod[0]} - {daily.timePeriod[1]} </p>
-                <p>It is your job to select the correct month and year for each image or select fake if you believe the image isn't real</p>
-            </div>
+            <DailyInfo/>
         </>
         ) : (
         <div className="flex flex-col justify-center items-center w-full text-eerieBlack my-10"> 
