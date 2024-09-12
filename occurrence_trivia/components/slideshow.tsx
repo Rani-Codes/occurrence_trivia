@@ -12,41 +12,28 @@ interface Guess {
 }
 
 const SlideShow = () => {
-  //custom hook to fetch firebase dailyChallenge data
   const { daily, error } = useDailyChallenge('09-08-2024') //replace string with desired date
 
   const [month, setMonth] = useState<number>(1)
   const [year, setYear] = useState<number>(2000)
   const [currentIndex, setCurrentIndex] = useState<number>(0)
-  const [guesses, setGuesses] = useState<Guess[]>([]) //store guesses for all images in array
+  const [guesses, setGuesses] = useState<Guess[]>([])
+  const [isComplete, setIsComplete] = useState<boolean>(false)
 
-  const handleMonthChange = (newMonth: number) => {
-    setMonth(newMonth)
-  }
-
-  const handleYearChange = (newYear: number) => {
-    setYear(newYear)
-  }
+  const handleMonthChange = (newMonth: number) => setMonth(newMonth)
+  const handleYearChange = (newYear: number) => setYear(newYear)
 
   const handleFormSubmit = (event: React.FormEvent) => {
     event.preventDefault();
   
     const newGuess: Guess = { month, year };
+    setGuesses((prevGuesses) => [...prevGuesses, newGuess])
   
-    setGuesses((prevGuesses) => {
-      const updatedGuesses = [...prevGuesses, newGuess];
-  
-      // Check if we're at the last image AFTER the state updates
-      if (currentIndex >= daily!.images.length - 1) {
-        // Only log guesses once when we reach the last image
-        console.log("End of slideshow. All guesses saved!", updatedGuesses);
-      }
-  
-      return updatedGuesses;
-    });
-  
-    if (currentIndex < daily!.images.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+    if (daily && currentIndex >= daily.images.length - 1) {
+      console.log("End of slideshow. All guesses saved!", [...guesses, newGuess]);
+      setIsComplete(true)
+    } else {
+      setCurrentIndex((prevIndex) => prevIndex + 1)
       setMonth(1);
       setYear(daily!.timePeriod[0]);
     }
@@ -61,7 +48,7 @@ const SlideShow = () => {
         <>
             <h2 className="font-semibold text-2xl">Daily Challenge #1</h2>
 
-            {daily.images[currentIndex] && (
+            {daily.images[currentIndex] && !isComplete && (
               <div className="w-full">
                 <Card image={daily.images[currentIndex]} /> 
 
@@ -79,11 +66,22 @@ const SlideShow = () => {
               </div>
             )}
             
-            {/*DOESNT WORK, when all images are submitted it doesnt show this message, NEEDS FIXING */}
-            {/* Daily info or end of slideshow message */}
-            {currentIndex >= daily.images.length && (
-              <p className="mt-4">You have finished the slideshow! All your guesses have been saved.</p>
+            {isComplete && (
+              <>
+                <p className="mt-4">You have finished the slideshow! All your guesses have been saved.</p>
+                <div>
+                  <h3> Your guesses:</h3>
+                  <ul>
+                    {guesses.map((guess, index) => (
+                      <li key={index} className="mt-2">
+                        For image {index + 1} you chose: {`Month ${guess.month} and year ${guess.year}`}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </>
             )}
+
             <DailyInfo/>
         </>
         ) : (
