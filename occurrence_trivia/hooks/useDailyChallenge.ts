@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { db } from "@/firebase/config";
 import { doc, getDoc, collection, getDocs, Timestamp } from "firebase/firestore"; 
 
-interface DailyChallengeData {
+export interface DailyChallengeData {
     images: ImageData[]
     timePeriod: [number, number];
     releaseTime: Timestamp;

@@ -5,8 +5,9 @@ import Card from "@/components/card";
 import CostumSlider from "@/components/slider"
 import DateChosen from "@/components/dateChosen"
 import DailyInfo from "./dailyInfo";
+import Score from "./score";
 
-interface Guess {
+export interface Guess {
   month: number
   year: number
 }
@@ -70,11 +71,11 @@ const SlideShow = () => {
               <>
                 <p className="mt-4">You have finished the slideshow! All your guesses have been saved.</p>
                 <div>
-                  <h3> Your guesses:</h3>
                   <ul>
                     {guesses.map((guess, index) => (
                       <li key={index} className="mt-2">
-                        For image {index + 1} you chose: {`Month ${guess.month} and year ${guess.year}`}
+                        {/* Display Score component here */}
+                        <Score guess={guess} index={index} daily={daily} />
                       </li>
                     ))}
                   </ul>
