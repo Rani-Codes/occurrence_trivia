@@ -6,6 +6,7 @@ import ToggleFake from "./toggleFake";
 interface bounds {
     month: number
     year: number
+    onFakeToggle: (isFake: boolean) => void
   }
 
 const monthNames = [
@@ -13,10 +14,13 @@ const monthNames = [
     "July", "August", "September", "October", "November", "December"
 ];
 
-const DateChosen = ({month, year}: bounds) => {
+const DateChosen = ({month, year, onFakeToggle }: bounds, isReal:boolean) => {
+
     const [isFake, setIsFake] = useState<boolean>(false); // State to manage switch
+
     const handleToggle = (value: boolean) => {
-        setIsFake(value); // Update state when switch is toggled
+        setIsFake(value)
+        onFakeToggle(value)
       };
 
     return (

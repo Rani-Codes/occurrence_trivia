@@ -10,6 +10,7 @@ import Score from "./score";
 export interface Guess {
   month: number
   year: number
+  real: boolean
 }
 
 const SlideShow = () => {
@@ -17,6 +18,7 @@ const SlideShow = () => {
 
   const [month, setMonth] = useState<number>(1)
   const [year, setYear] = useState<number>(2000)
+  const [isFake, setIsFake] = useState<boolean>(false)
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [guesses, setGuesses] = useState<Guess[]>([])
   const [isComplete, setIsComplete] = useState<boolean>(false)
@@ -24,10 +26,12 @@ const SlideShow = () => {
   const handleMonthChange = (newMonth: number) => setMonth(newMonth)
   const handleYearChange = (newYear: number) => setYear(newYear)
 
+  const handleFakeToggle = (value: boolean) => setIsFake(value)
+
   const handleFormSubmit = (event: React.FormEvent) => {
     event.preventDefault();
   
-    const newGuess: Guess = { month, year };
+    const newGuess: Guess = { month, year, real: !isFake };
     setGuesses((prevGuesses) => [...prevGuesses, newGuess])
   
     if (daily && currentIndex >= daily.images.length - 1) {
@@ -62,8 +66,7 @@ const SlideShow = () => {
                 <form onSubmit={handleFormSubmit} className="w-full flex flex-col justify-center items-center">
                     <CostumSlider lowerBound={1} upperBound={12} lowerName="January" upperName="December" onValueChange={handleMonthChange}/>
                     <CostumSlider lowerBound={daily.timePeriod[0]} upperBound={daily.timePeriod[1]} lowerName={daily.timePeriod[0]} upperName={daily.timePeriod[1]} onValueChange={handleYearChange}/>
-                    {/* NEEDS FIXING, doesnt display fake option when chosen as the guess.*/}
-                    <DateChosen month={month} year={year}/>
+                    <DateChosen month={month} year={year} onFakeToggle={handleFakeToggle}/>
 
                     <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded mt-4 ">
                       Submit Guess
@@ -80,8 +83,7 @@ const SlideShow = () => {
                   <ul>
                     {guesses.map((guess, index) => (
                       <li key={index} className="mt-2">
-                        {/* Display Score component here */}
-                        <Score guess={guess} index={index} daily={daily} />
+                        <Score guess={guess} index={index} daily={daily}/>
                       </li>
                     ))}
                   </ul>
