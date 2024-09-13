@@ -4,8 +4,9 @@ import { doc, getDoc, collection, getDocs, Timestamp } from "firebase/firestore"
 
 export interface DailyChallengeData {
     images: ImageData[]
-    timePeriod: [number, number];
-    releaseTime: Timestamp;
+    timePeriod: [number, number]
+    releaseTime: Timestamp
+    topic: string
   }
   
   interface ImageData {

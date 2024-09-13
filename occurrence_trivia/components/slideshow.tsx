@@ -49,6 +49,12 @@ const SlideShow = () => {
         <>
             <h2 className="font-semibold text-2xl">Daily Challenge #1</h2>
 
+            {daily.topic ? (
+              <h3 className="mb-2">The topic for today is <span className="bg-yellow-300 p-1 rounded-lg font-semibold">{daily.topic}</span></h3>
+            ) : (
+              <h3 className="mb-2">The topic for today has not been specified.</h3>
+            )}
+
             {daily.images[currentIndex] && !isComplete && (
               <div className="w-full">
                 <Card image={daily.images[currentIndex]} /> 
