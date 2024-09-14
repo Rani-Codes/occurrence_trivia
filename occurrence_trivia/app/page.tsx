@@ -1,9 +1,9 @@
-import SlideShow from "@/components/slideshow";
+import DailyGame from "@/components/dailyGame"
 
 export default function Home() {
   return (
     <main className="my-10">
-      <SlideShow/>
+      <DailyGame/>
     </main>
   );
 }
