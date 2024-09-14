@@ -7,6 +7,13 @@ const DailyInfo = () => {
         {daily ? (
             <div className="my-20 text-center">
                 <h2 className="text-lg">About today's images</h2>
+
+                {daily.topic ? (
+                <h3>The topic for today is <span className="bg-yellow-300 p-1 rounded-lg font-semibold">{daily.topic}</span></h3>
+                ) : (
+                <h3>The topic for today has not been specified.</h3>
+                )}
+
                 <p>The release time for these images is: {daily.releaseTime.toDate().toLocaleDateString()} </p>
                 <p>The images for today are from the time period between: {daily.timePeriod[0]} - {daily.timePeriod[1]} </p>
                 <p>It is your job to select the correct month and year for each image or select fake if you believe the image isn't real</p>

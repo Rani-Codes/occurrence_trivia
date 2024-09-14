@@ -53,12 +53,6 @@ const SlideShow = () => {
         <>
             <h2 className="font-semibold text-2xl">Daily Challenge #1</h2>
 
-            {daily.topic ? (
-              <h3 className="mb-2">The topic for today is <span className="bg-yellow-300 p-1 rounded-lg font-semibold">{daily.topic}</span></h3>
-            ) : (
-              <h3 className="mb-2">The topic for today has not been specified.</h3>
-            )}
-
             {daily.images[currentIndex] && !isComplete && (
               <div className="w-full">
                 <Card image={daily.images[currentIndex]} /> 
@@ -68,9 +62,13 @@ const SlideShow = () => {
                     <CostumSlider lowerBound={daily.timePeriod[0]} upperBound={daily.timePeriod[1]} lowerName={daily.timePeriod[0]} upperName={daily.timePeriod[1]} onValueChange={handleYearChange}/>
                     <DateChosen month={month} year={year} onFakeToggle={handleFakeToggle}/>
 
-                    <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded mt-4 ">
+                    <button
+                      type="submit"
+                      className="bg-flame text-floralWhite py-2 px-4 rounded-lg mt-4 hover:bg-orange-700 hover:shadow-[0_0_15px_5px_#f0865c] transition-shadow duration-300"
+                      >
                       Submit Guess
                     </button>
+                    
                 </form>
 
               </div>
