@@ -6,7 +6,6 @@
 import { useEffect, useState } from "react";
 import { User, getAuth, onAuthStateChanged } from "firebase/auth";
 import { signInWithGoogle, signOutFromGoogle } from "@/firebase/googleAuth";
-import { userSignedIn } from "@/firebase/UserSignedIn"
 
 export const useAuth = () => {
 
@@ -45,7 +44,6 @@ export const useAuth = () => {
           }
       }
 
-      const isUserSignedIn = userSignedIn();
 
-      return { user, handleSignIn, handleSignOut, isUserSignedIn };
+      return { user, handleSignIn, handleSignOut };
 }

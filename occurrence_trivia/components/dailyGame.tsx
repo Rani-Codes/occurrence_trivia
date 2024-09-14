@@ -7,7 +7,7 @@ const DailyGame = () => {
     const { daily, error } = useDailyChallenge('09-08-2024') //replace string with desired date
 
     if(error) {
-        return <p className="text-red-600">{error}</p>
+        return <p className="text-red-600 text-lg flex justify-center">{error}</p>
     }
 
     return (

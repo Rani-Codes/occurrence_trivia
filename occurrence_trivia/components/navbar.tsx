@@ -3,14 +3,13 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import Image from 'next/image'
 import { useAuth } from "@/hooks/useAuth"
-import GoogleBtn from "./googleBtn"
 
 export default function Navbar() {
     const pathname = usePathname()
     const isProfilePage = pathname?.includes("/profile")
     const isHelpPage = pathname?.includes("/help")
 
-    const { user, handleSignIn, handleSignOut, isUserSignedIn } = useAuth();
+    const { user, handleSignIn, handleSignOut } = useAuth();
 
 
     return (
