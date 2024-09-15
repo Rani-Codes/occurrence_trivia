@@ -4,7 +4,8 @@ import DailyInfo from "./dailyInfo";
 import SlideShow from "./slideshow";
 
 const DailyGame = () => {
-    const { daily, error } = useDailyChallenge('09-08-2024') //replace string with desired date
+    const dayChosen = "09-08-2024" //replace string with desired date
+    const { daily, error } = useDailyChallenge(dayChosen)
 
     if(error) {
         return <p className="text-red-600 text-lg flex justify-center">{error}</p>
@@ -16,7 +17,7 @@ const DailyGame = () => {
             <>
                 <h2 className="font-semibold text-2xl">Daily Challenge #1</h2>
                 <SlideShow daily={daily} />
-                <DailyInfo />
+                <DailyInfo dayChosen={dayChosen}/>
             </>
             ): (
             <div className="flex flex-col justify-center items-center w-full text-eerieBlack my-10"> 

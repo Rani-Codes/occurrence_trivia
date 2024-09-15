@@ -59,8 +59,10 @@ const SetUsername = () => {
   
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <h1>Set a Unique Username</h1>
+    <div className="flex flex-col items-center justify-center my-10">
+      <h1 className="text-xl">Hi there! It looks like you don't have a username yet, please enter the username you would like to have. </h1>
+      <h4 className="underline">Note: This username will be visible to all players if you make it on the leaderboard.</h4>
+      <h2 className="mt-10">Set a <em>unique</em> username</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -69,7 +71,7 @@ const SetUsername = () => {
           placeholder="Enter your username"
           className="mb-4 p-2 border"
         />
-        <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
+        <button type="submit" className="bg-flame text-white py-2 px-4 rounded">
           Submit
         </button>
       </form>
