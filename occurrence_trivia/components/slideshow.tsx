@@ -15,6 +15,7 @@ const SlideShow = ({daily}: {daily: DailyChallengeData}) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [guesses, setGuesses] = useState<Guess[]>([])
   const [isComplete, setIsComplete] = useState<boolean>(false)
+  const [totalScore, setTotalScore] = useState<number>(0)
 
   const [month, setMonth] = useState<number>(1)
   const [year, setYear] = useState<number>(2000)
@@ -24,6 +25,38 @@ const SlideShow = ({daily}: {daily: DailyChallengeData}) => {
   const handleYearChange = (newYear: number) => setYear(newYear)
   const handleFakeToggle = (value: boolean) => setIsFake(value)
 
+  const calculateScore = (guesses: Guess[], daily: DailyChallengeData) => {
+    let score = 0;
+
+    guesses.forEach((guess, index) => {
+      const correctYear = daily.images[index].year;
+      const correctMonth = daily.images[index].month;
+      const correctReal = daily.images[index].real;
+
+      const yearDiff = Math.abs(guess.year - correctYear);
+      const monthDiff = Math.abs(guess.month - correctMonth);
+      const totalMonthsDiff = yearDiff * 12 + monthDiff;
+
+      const wasRealGuessCorrect = guess.real === correctReal;
+
+      let points = 0;
+
+      if (correctReal) {
+        if (wasRealGuessCorrect) {
+          points = 1200 - totalMonthsDiff;
+        } else {
+          points = 0;
+        }
+      } else {
+        points = wasRealGuessCorrect ? 1200 : 0;
+      }
+
+      score += points;
+    });
+
+    return score;
+  };
+
   const handleFormSubmit = (event: React.FormEvent) => {
     event.preventDefault();
   
@@ -31,6 +64,8 @@ const SlideShow = ({daily}: {daily: DailyChallengeData}) => {
     setGuesses((prevGuesses) => [...prevGuesses, newGuess])
   
     if (daily && currentIndex >= daily.images.length - 1) {
+      const finalScore = calculateScore([...guesses, newGuess], daily);
+      setTotalScore(finalScore);
       console.log("End of slideshow. All guesses saved!", [...guesses, newGuess]);
       setIsComplete(true)
     } else {
@@ -68,6 +103,8 @@ const SlideShow = ({daily}: {daily: DailyChallengeData}) => {
                   <Score guess={guess} index={index} daily={daily}/>
                 </li>
               ))}
+              <h2 className="text-xl text-center">Your score is <b>{totalScore}</b> out 
+                  of {daily.images.length * 1200} possible points</h2>
             </ul>
           </div>
         </>
