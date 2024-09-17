@@ -95,15 +95,15 @@ const SlideShow = ({daily}: {daily: DailyChallengeData}) => {
 
       {isComplete && (
         <>
-          <p className="mt-4">You have finished the slideshow! All your guesses have been saved.</p>
-          <div>
+          <p className="mt-4 text-lg">You have finished the slideshow! All your guesses have been saved.</p>
+          <div className="w-8/12">
             <ul>
               {guesses.map((guess, index) => (
                 <li key={index} className="mt-2">
                   <Score guess={guess} index={index} daily={daily}/>
                 </li>
               ))}
-              <h2 className="text-xl text-center">Your score is <b>{totalScore}</b> out 
+              <h2 className="text-2xl text-center py-4">You earned <b>{totalScore}</b> out 
                   of {daily.images.length * 1200} possible points</h2>
             </ul>
           </div>

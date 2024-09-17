@@ -33,34 +33,48 @@ interface ScoreProps {
       points = wasRealGuessCorrect ? 1200 : 0; // Full points for correct fake guess, 0 for incorrect
     }
 
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June", 
+      "July", "August", "September", "October", "November", "December"
+  ];
+
+  const scoreEmojis = ['😢', '🙂‍↕️', '😤'];
+
   
     return (
-      <div className="mt-2">
-        <h1>
-          You {wasRealGuessCorrect ? "correctly" : "incorrectly"} guessed that image {index + 1} was{" "}
-          {guess.real ? "real" : "fake"}.
+<div className={`mt-2 ${index % 2 === 0 ? 'bg-blackOlive' : 'bg-eerieBlack'} text-floralWhite p-4 rounded flex flex-col justify-center items-center`}>
+        <h1 className="text-lg pb-2">
+          You <span className="font-bold">{wasRealGuessCorrect ? <span className="text-green-500">correctly</span> : <span className="text-red-500">incorrectly</span>}</span> guessed
+           image {index + 1} was{" "}
+          {guess.real ? "real" : "fake"}
         </h1>
-        {correctReal ? (
-          wasRealGuessCorrect ? (
-            <>
-              <p>You chose: month {` ${guess.month} and year ${guess.year}`}</p>
-              <p>
-                You were {yearDiff} years and {monthDiff} months away from the correct date.
-              </p>
-            </>
+        <div className="flex w-full justify-between">
+          <img src={daily.images[index].url} alt={`Image ${index + 1}`} className="w-20 h-20 object-cover rounded mb-4" />
+
+          <div className="">
+            <h3 className="underline">Your Guess</h3>
+            <h5>Type:  <span className="font-semibold">{guess.real ? 'Real' : 'Fake'}</span></h5>
+            {guess.real ? (
+              <h5>Date: {monthNames[guess.month -1]} {guess.year}</h5>
           ) : (
-            <p>Months away... invalid</p>
-          )
-        ) : (
-          wasRealGuessCorrect ? (
-            <>
-              <p>Light work no reaction! &#128548;</p>
-            </>
-          ) : (
-            <p>Better luck next time &#128546;</p>
-          )
-        )}
-        <p>You got {points} points for image {index + 1}.</p>
+              <></>
+            )}
+          </div>
+
+          <div className="">
+            <h3 className="underline">Correct Answer</h3>
+            <h5>Type:  <span className="font-semibold">{correctReal ? 'Real' : 'Fake'}</span></h5>
+            {correctReal ? (
+              <h5>Date: {monthNames[correctMonth -1]} {correctYear}</h5>
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
+        <h1 className="text-lg">You earned <span className="font-semibold bg-flame p-1 rounded">{points}</span> points on this image {' '}
+        {points > 1000 ? scoreEmojis[2] : points > 500 ? scoreEmojis[1] : scoreEmojis[0]}
+
+        </h1>
       </div>
     )
   }
