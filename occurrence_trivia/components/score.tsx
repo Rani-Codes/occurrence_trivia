@@ -6,9 +6,10 @@ interface ScoreProps {
     guess: Guess // User's guess for an image
     index: number // Index of the current image
     daily: DailyChallengeData // Daily data containing the correct answers
+    maxScore: number // Pass the maximum score dynamically
   }
   
-  const Score: React.FC<ScoreProps> = ({ guess, index, daily }) => {
+  const Score: React.FC<ScoreProps> = ({ guess, index, daily, maxScore }) => {
     const correctYear = daily.images[index].year
     const correctMonth = daily.images[index].month
     const correctReal = daily.images[index].real
@@ -24,13 +25,13 @@ interface ScoreProps {
     if (correctReal) {
       // If the image is real
       if (wasRealGuessCorrect) {
-        points = 1200 - totalMonthsDiff; // Only deduct points based on time difference if the guess is correct
+        points = maxScore - totalMonthsDiff; // Only deduct points based on time difference if the guess is correct
       } else {
         points = 0; // Incorrect guess gets 0 points
       }
     } else {
       // If the image is fake
-      points = wasRealGuessCorrect ? 1200 : 0; // Full points for correct fake guess, 0 for incorrect
+      points = wasRealGuessCorrect ? maxScore : 0; // Full points for correct fake guess, 0 for incorrect
     }
 
     const monthNames = [
@@ -38,7 +39,7 @@ interface ScoreProps {
       "July", "August", "September", "October", "November", "December"
   ];
 
-  const scoreEmojis = ['😢', '🙂‍↕️', '😤'];
+  const scoreEmojis = ['💀', '🙂‍↕️', '😤'];
 
   
     return (
@@ -72,8 +73,7 @@ interface ScoreProps {
           </div>
         </div>
         <h1 className="text-lg">You earned <span className="font-semibold bg-flame p-1 rounded">{points}</span> points on this image {' '}
-        {points > 1000 ? scoreEmojis[2] : points > 500 ? scoreEmojis[1] : scoreEmojis[0]}
-
+        {points >= (maxScore * 3 / 4) ? scoreEmojis[2] : points >= (maxScore * 1 / 2) ? scoreEmojis[1] : scoreEmojis[0]}
         </h1>
       </div>
     )

@@ -100,11 +100,11 @@ const SlideShow = ({daily}: {daily: DailyChallengeData}) => {
             <ul>
               {guesses.map((guess, index) => (
                 <li key={index} className="mt-2">
-                  <Score guess={guess} index={index} daily={daily}/>
+                  <Score guess={guess} index={index} daily={daily} maxScore={daily.maxScore}/>
                 </li>
               ))}
               <h2 className="text-2xl text-center py-4">You earned <b>{totalScore}</b> out 
-                  of {daily.images.length * 1200} possible points</h2>
+                  of {daily.images.length * daily.maxScore} possible points</h2>
             </ul>
           </div>
         </>
