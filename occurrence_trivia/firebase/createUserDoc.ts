@@ -15,8 +15,8 @@ export const createUserDocument = async (user: User) => {
     if (!userSnap.exists()) {
         const userData = {
             username: '', // Set later
-            timeCompletedDaily: [], // Array of timestamps
-            dailyScores: [], // Array of scores (numbers)
+            timeCompletedDaily: null, // timestamp of time completed daily challenge, initialized as null
+            dailyScores: {}, // Map of date strings to scores
             profilePicture: user.photoURL, // Taken from Google login
         };
         await setDoc(userRef, userData);

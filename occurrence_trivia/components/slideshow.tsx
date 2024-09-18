@@ -1,9 +1,11 @@
 'use client'
-import { useState } from "react";
-import Card from "@/components/card";
-import Score from "./score";
-import GuessForm from "./guessForm";
-import { DailyChallengeData } from "@/hooks/useDailyChallenge";
+import { useState, useEffect } from "react"
+import { db } from "@/firebase/config" // Import your Firestore setup
+import { doc, getDoc, updateDoc } from "firebase/firestore" // Firestore methods
+import Card from "@/components/card"
+import Score from "./score"
+import GuessForm from "./guessForm"
+import { DailyChallengeData } from "@/hooks/useDailyChallenge"
 
 export interface Guess {
   month: number
@@ -11,70 +13,122 @@ export interface Guess {
   real: boolean
 }
 
-const SlideShow = ({daily}: {daily: DailyChallengeData}) => {
+const SlideShow = ({ userId, daily, dayChosen }: { userId: string, daily: DailyChallengeData, dayChosen: string }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [guesses, setGuesses] = useState<Guess[]>([])
   const [isComplete, setIsComplete] = useState<boolean>(false)
   const [totalScore, setTotalScore] = useState<number>(0)
+  const [canAttempt, setCanAttempt] = useState<boolean>(false)
 
   const [month, setMonth] = useState<number>(1)
   const [year, setYear] = useState<number>(2000)
   const [isFake, setIsFake] = useState<boolean>(false)
 
-  const handleMonthChange = (newMonth: number) => setMonth(newMonth)
-  const handleYearChange = (newYear: number) => setYear(newYear)
-  const handleFakeToggle = (value: boolean) => setIsFake(value)
-
+  // Function to calculate score
   const calculateScore = (guesses: Guess[], daily: DailyChallengeData) => {
-    let score = 0;
+    let score = 0
 
     guesses.forEach((guess, index) => {
-      const correctYear = daily.images[index].year;
-      const correctMonth = daily.images[index].month;
-      const correctReal = daily.images[index].real;
+      const correctYear = daily.images[index].year
+      const correctMonth = daily.images[index].month
+      const correctReal = daily.images[index].real
 
-      const yearDiff = Math.abs(guess.year - correctYear);
-      const monthDiff = Math.abs(guess.month - correctMonth);
-      const totalMonthsDiff = yearDiff * 12 + monthDiff;
+      const yearDiff = Math.abs(guess.year - correctYear)
+      const monthDiff = Math.abs(guess.month - correctMonth)
+      const totalMonthsDiff = yearDiff * 12 + monthDiff
 
-      const wasRealGuessCorrect = guess.real === correctReal;
+      const wasRealGuessCorrect = guess.real === correctReal
 
-      let points = 0;
+      let points = 0
 
       if (correctReal) {
-        if (wasRealGuessCorrect) {
-          points = 1200 - totalMonthsDiff;
-        } else {
-          points = 0;
-        }
+        points = wasRealGuessCorrect ? 1200 - totalMonthsDiff : 0
       } else {
-        points = wasRealGuessCorrect ? 1200 : 0;
+        points = wasRealGuessCorrect ? 1200 : 0
       }
 
-      score += points;
+      score += points
+    })
+
+    return score
+  }
+
+  const handleCompletion = async () => {
+    const userDocRef = doc(db, "users", userId);
+
+    const today = new Date()
+    const dayString = today.toLocaleDateString("en-US"); // Format as 'MM-DD-YYYY'
+    
+    // Update Firestore with the new data
+    await updateDoc(userDocRef, {
+      timeCompletedDaily: new Date(),
+      [`dailyScores.${dayChosen}`]: totalScore //updates the daily score for the specific date
     });
-
-    return score;
   };
+  
 
+  // Function to check if the user can attempt today's challenge
+  const checkLastAttempt = async () => {
+    const userDocRef = doc(db, "users", userId)
+    const userDoc = await getDoc(userDocRef)
+
+    if (userDoc.exists()) {
+      const lastAttempt = userDoc.data().timeCompletedDaily
+
+      if (lastAttempt) {
+        const lastAttemptDate = new Date(lastAttempt.seconds * 1000) // Convert Firestore timestamp to JS Date
+        const today = new Date()
+        const isSameDay = today.toDateString() === lastAttemptDate.toDateString()
+
+        if (isSameDay) {
+          setCanAttempt(false)
+        } else {
+          setCanAttempt(true)
+        }
+      } else {
+        setCanAttempt(true) // If no last attempt, allow the user to attempt
+      }
+    }
+  }
+
+  useEffect(() => {
+    checkLastAttempt()
+  }, [userId])
+
+  // Handle form submission
   const handleFormSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-  
-    const newGuess: Guess = { month, year, real: !isFake };
+    event.preventDefault()
+
+    if (!canAttempt) {
+      return
+    }
+
+    const newGuess: Guess = { month, year, real: !isFake }
     setGuesses((prevGuesses) => [...prevGuesses, newGuess])
-  
+
     if (daily && currentIndex >= daily.images.length - 1) {
-      const finalScore = calculateScore([...guesses, newGuess], daily);
-      setTotalScore(finalScore);
-      console.log("End of slideshow. All guesses saved!", [...guesses, newGuess]);
+      const finalScore = calculateScore([...guesses, newGuess], daily)
+      setTotalScore(finalScore)
       setIsComplete(true)
     } else {
       setCurrentIndex((prevIndex) => prevIndex + 1)
-      setMonth(1);
-      setYear(daily!.timePeriod[0]);
+      setMonth(1)
+      setYear(daily!.timePeriod[0])
     }
-  };
+  }
+
+  useEffect(() => {
+    if (isComplete && totalScore > 0) {
+      handleCompletion(); // Only call after totalScore is calculated
+    }
+  }, [isComplete, totalScore]); // Trigger the effect when both `isComplete` and `totalScore` are updated
   
+
+  if (!canAttempt) {
+    return (
+      <div className="">You have already completed today's ({dayChosen}) challenge. Come back tomorrow!</div>
+    )
+  }
 
   return (
     <>
@@ -85,9 +139,9 @@ const SlideShow = ({daily}: {daily: DailyChallengeData}) => {
             month={month}
             year={year}
             daily={daily}
-            handleMonthChange={handleMonthChange}
-            handleYearChange={handleYearChange}
-            handleFakeToggle={handleFakeToggle}
+            handleMonthChange={(newMonth: number) => setMonth(newMonth)}
+            handleYearChange={(newYear: number) => setYear(newYear)}
+            handleFakeToggle={(value: boolean) => setIsFake(value)}
             handleFormSubmit={handleFormSubmit}
           />
         </div>
@@ -100,11 +154,10 @@ const SlideShow = ({daily}: {daily: DailyChallengeData}) => {
             <ul>
               {guesses.map((guess, index) => (
                 <li key={index} className="mt-2">
-                  <Score guess={guess} index={index} daily={daily} maxScore={daily.maxScore}/>
+                  <Score guess={guess} index={index} daily={daily} maxScore={daily.maxScore} />
                 </li>
               ))}
-              <h2 className="text-2xl text-center py-4">You earned <b>{totalScore}</b> out 
-                  of {daily.images.length * daily.maxScore} possible points</h2>
+              <h2 className="text-2xl text-center py-4">You earned <b>{totalScore}</b> out of {daily.images.length * daily.maxScore} possible points</h2>
             </ul>
           </div>
         </>
