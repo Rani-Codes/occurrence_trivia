@@ -2,11 +2,20 @@
 import { useDailyChallenge } from "@/hooks/useDailyChallenge";
 import DailyInfo from "./dailyInfo";
 import SlideShow from "./slideshow";
-import { useUser } from "@/hooks/useUser"; // Import the useUser hook
-
-export const dayChosen = "09-08-2024" //replace string with desired date
+import { useUser } from "@/hooks/useUser";
+import { useEffect, useState } from "react";
+import { getCurrentDateString } from "@/utils/dateUtils";
 
 const DailyGame = () => {
+
+    const [dayChosen, setDayChosen] = useState<string>(""); // Use state to store the chosen day
+    
+    // Set the current date as dayChosen when the component mounts
+    useEffect(() => {
+        const currentDate = getCurrentDateString();
+        setDayChosen(currentDate);
+    }, []);
+
     const { daily, error } = useDailyChallenge(dayChosen)
     const { user } = useUser()
 
