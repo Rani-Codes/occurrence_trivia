@@ -8,6 +8,7 @@ export default function Navbar() {
     const pathname = usePathname()
     const isProfilePage = pathname?.includes("/profile")
     const isHelpPage = pathname?.includes("/help")
+    const isLeaderboardPage = pathname?.includes("/leaderboard")
 
     const { user, handleSignIn, handleSignOut } = useAuth();
 
@@ -28,20 +29,20 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex gap-10 justify-center items-center">
-                    {(isProfilePage || isHelpPage) && (
+                    {(isProfilePage || isHelpPage || isLeaderboardPage) &&  (
                         <Link
                             href={"/"}
                             className="hover:bg-blackOlive p-2 rounded"
                         >
-                            Go to home page
+                            Home page
                         </Link>
                     )}
-                    {!isProfilePage && (
+                    {!isLeaderboardPage && (
                         <Link
-                            href={"/profile"}
+                            href={"/leaderboard"}
                             className="hover:bg-blackOlive p-2 rounded"
                         >
-                            Go to profile page
+                            Leaderboard
                         </Link>
                     )}
                     {!isHelpPage && (
@@ -49,7 +50,15 @@ export default function Navbar() {
                             href={"/help"}
                             className="hover:bg-blackOlive p-2 rounded"
                         >
-                            Go to help page
+                            Help page
+                        </Link>
+                    )}
+                    {!isProfilePage && (
+                        <Link
+                            href={"/profile"}
+                            className="hover:bg-blackOlive p-2 rounded"
+                        >
+                            Profile page
                         </Link>
                     )}
                     {user ? (

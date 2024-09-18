@@ -4,8 +4,9 @@ import DailyInfo from "./dailyInfo";
 import SlideShow from "./slideshow";
 import { useUser } from "@/hooks/useUser"; // Import the useUser hook
 
+export const dayChosen = "09-08-2024" //replace string with desired date
+
 const DailyGame = () => {
-    const dayChosen = "09-08-2024" //replace string with desired date
     const { daily, error } = useDailyChallenge(dayChosen)
     const { user } = useUser()
 
