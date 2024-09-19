@@ -8,6 +8,7 @@ export interface DailyChallengeData {
     releaseTime: Timestamp
     topic: string
     maxScore: number
+    hint: string
   }
   
   interface ImageData {
