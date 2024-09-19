@@ -25,11 +25,7 @@ export const useAuth = () => {
                 const userRef = doc(db, "users", currentUser.uid);
                 const userDoc = await getDoc(userRef);
 
-                if (userDoc.exists() && userDoc.data()?.username) {
-                    // User has a username
-                    console.log("User has a username:", userDoc.data().username);
-                } else {
-                    // User does not have a username, redirect them
+                if (!userDoc.exists() || !userDoc.data()?.username) {
                     router.push('/set-username'); // Redirect to "Set Username" page
                 }
 

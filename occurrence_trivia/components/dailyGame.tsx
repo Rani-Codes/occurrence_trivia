@@ -7,13 +7,13 @@ import { useEffect, useState } from "react";
 import { getCurrentDateString } from "@/utils/dateUtils";
 
 const DailyGame = () => {
-
     const [dayChosen, setDayChosen] = useState<string>(""); // Use state to store the chosen day
     
     // Set the current date as dayChosen when the component mounts
     useEffect(() => {
         const currentDate = getCurrentDateString();
         setDayChosen(currentDate);
+        console.log("Setting dayChosen to:", currentDate);  // For debugging
     }, []);
 
     const { daily, error } = useDailyChallenge(dayChosen)
