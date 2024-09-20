@@ -6,6 +6,7 @@ import { useUser } from "@/hooks/useUser";
 import { useEffect, useState } from "react";
 import { getCurrentDateString } from "@/utils/dateUtils";
 import { useAuth } from "@/hooks/useAuth";
+import Image from 'next/image'
 
 const DailyGame = () => {
     const { handleSignIn } = useAuth()
@@ -53,13 +54,24 @@ const DailyGame = () => {
             )}
             {!user && (
                 <div className="flex flex-col justify-center items-center">
-                    <h1 className="text-center text-2xl">Please <span className="font-semibold">sign in with Google</span> to play the game.</h1>
+                    <h1 className="text-4xl mb-8">Welcome to Occurrence, a Photo Trivia Game</h1>
+                    <h2 className="text-center text-2xl">Please <span className="font-semibold">sign in with Google</span> to play the game.</h2>
                     <button
                         onClick={handleSignIn}
                         className="bg-blackOlive text-floralWhite text-xl py-2 px-4 my-6 rounded-lg hover:bg-eerieBlack hover:shadow-[0_0_15px_5px_#808080] transition-shadow duration-300"
                         >
                         Sign in with google
                     </button>
+
+                    <div className="w-1/2 flex justify-center">
+                    <Image
+                            src="/logo.jpeg"
+                            width={500}
+                            height={500}
+                            alt="Occurrence Logo"
+                            className=""
+                        />
+                    </div>
                 </div>
             )}
         </>
