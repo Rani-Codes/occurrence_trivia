@@ -29,9 +29,9 @@ const DailyGame = () => {
             <div className="flex flex-col justify-center items-center w-full text-eerieBlack">
                 {daily ? (
                 <>
-                    <h2 className="font-semibold text-2xl">Daily Challenge #1</h2>
-                    <SlideShow userId={user.uid} daily={daily} dayChosen={dayChosen} />
+                    <h2 className="font-semibold text-2xl">Daily Challenge {dayChosen} </h2>
                     <DailyInfo dayChosen={dayChosen}/>
+                    <SlideShow userId={user.uid} daily={daily} dayChosen={dayChosen} />
                 </>
                 ): (
                 <div className="flex flex-col justify-center items-center w-full text-eerieBlack my-10"> 
