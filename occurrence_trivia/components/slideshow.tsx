@@ -127,7 +127,12 @@ const SlideShow = ({ userId, daily, dayChosen }: { userId: string, daily: DailyC
 
   if (!canAttempt) {
     return (
-      <div className="text-lg">You completed today's ({dayChosen}) challenge. Come back tomorrow for a new challenge!</div>
+      <div className="text-center text-lg mt-4">
+        <h1 className="text-2xl">That's all folks!</h1>
+        <h2>You've completed today's challenge.</h2>
+        <h3>Come back tomorrow for a new challenge with a new leaderboard! 🔥</h3>
+        <h4>See you there! 👋</h4>
+      </div>
     )
   }
 

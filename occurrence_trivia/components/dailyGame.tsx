@@ -5,8 +5,11 @@ import SlideShow from "./slideshow";
 import { useUser } from "@/hooks/useUser";
 import { useEffect, useState } from "react";
 import { getCurrentDateString } from "@/utils/dateUtils";
+import { useAuth } from "@/hooks/useAuth";
 
 const DailyGame = () => {
+    const { handleSignIn } = useAuth()
+
     const [dayChosen, setDayChosen] = useState<string>(""); // Use state to store the chosen day
     const [isHintOpen, setIsHintOpen] = useState<boolean>(true); // Control for the AlertDialog
 
@@ -49,7 +52,15 @@ const DailyGame = () => {
                 </div>
             )}
             {!user && (
-                <h2 className="text-center text-xl">Please login to play the game.</h2>
+                <div className="flex flex-col justify-center items-center">
+                    <h1 className="text-center text-2xl">Please <span className="font-semibold">sign in with Google</span> to play the game.</h1>
+                    <button
+                        onClick={handleSignIn}
+                        className="bg-blackOlive text-floralWhite text-xl py-2 px-4 my-6 rounded-lg hover:bg-eerieBlack hover:shadow-[0_0_15px_5px_#808080] transition-shadow duration-300"
+                        >
+                        Sign in with google
+                    </button>
+                </div>
             )}
         </>
     )
