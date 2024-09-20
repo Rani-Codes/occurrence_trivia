@@ -6,6 +6,7 @@ import Card from "@/components/card"
 import Score from "./score"
 import GuessForm from "./guessForm"
 import { DailyChallengeData } from "@/hooks/useDailyChallenge"
+import Link from "next/link"
 
 export interface Guess {
   month: number
@@ -126,7 +127,7 @@ const SlideShow = ({ userId, daily, dayChosen }: { userId: string, daily: DailyC
 
   if (!canAttempt) {
     return (
-      <div className="">You have already completed today's ({dayChosen}) challenge. Come back tomorrow!</div>
+      <div className="text-lg">You completed today's ({dayChosen}) challenge. Come back tomorrow for a new challenge!</div>
     )
   }
 
@@ -149,7 +150,7 @@ const SlideShow = ({ userId, daily, dayChosen }: { userId: string, daily: DailyC
 
       {isComplete && (
         <>
-          <p className="mt-4 text-lg">You have finished the slideshow! All your guesses have been saved.</p>
+          <h3 className="mt-4 text-lg">You have finished the slideshow! All your guesses have been saved.</h3>
           <div className="w-8/12">
             <ul>
               {guesses.map((guess, index) => (
@@ -159,6 +160,18 @@ const SlideShow = ({ userId, daily, dayChosen }: { userId: string, daily: DailyC
               ))}
               <h2 className="text-2xl text-center py-4">You earned <b>{totalScore}</b> out of {daily.images.length * daily.maxScore} possible points</h2>
             </ul>
+
+            <div className="flex flex-col justify-center items-center">
+              <h3 className="mt-4 text-lg">Wanna see if you made it onto the daily leaderboard?</h3>
+              <Link href={'/leaderboard'}>
+                <button
+                    className="bg-blackOlive text-floralWhite py-2 px-4 rounded-lg hover:bg-eerieBlack hover:shadow-[0_0_15px_5px_#808080] transition-shadow duration-300"
+                    >
+                    Leaderboard
+                </button>
+              </Link>
+            </div>
+
           </div>
         </>
       )}
