@@ -19,7 +19,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${openSans.className} bg-floralWhite `}>
         <Navbar/>
-        {children}
+        <div className="my-10">
+          {children}
+        </div>
         </body>
     </html>
   );
