@@ -77,38 +77,40 @@ const ProfilePage = () => {
       })
     : [];
 
-  return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-3xl font-bold">Welcome back, {profileData?.username}</h1>
-
-      {profileData?.profilePicture && (
-        <img
-          src={profileData.profilePicture}
-          alt="Profile"
-          className="w-32 h-32 rounded-full mt-4"
-        />
-      )}
-
-      <div className="mt-6 w-8/12">
-        <h2 className="text-2xl font-semibold">Your Daily Challenge Scores</h2>
-        {sortedScores.length > 0 ? (
-          <ul className="mt-4 space-y-2">
-            {sortedScores.map(([date, score]) => (
-              <li
-                key={date}
-                className="flex justify-between p-2 bg-blackOlive text-floralWhite rounded-lg shadow text-xl"
-              >
-                <span>Date: {date}</span>
-                <span className="font-semibold">Score: {score as number}</span>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-4">No scores available yet. Play more games to populate this area.</p>
+    return (
+      <div className="flex flex-col items-center">
+        {profileData && (
+          <>
+            <h1 className="text-3xl font-bold">Welcome back, {profileData?.username}</h1>
+    
+            {profileData?.profilePicture && (
+              <img
+                src={profileData.profilePicture}
+                alt="Profile"
+                className="w-32 h-32 rounded-full mt-4"
+              />
+            )}
+    
+            {sortedScores.length > 0 && (
+              <div className="mt-6 w-8/12">
+                <h2 className="text-2xl font-semibold">Your Daily Challenge Scores</h2>
+                <ul className="mt-4 space-y-2">
+                  {sortedScores.map(([date, score]) => (
+                    <li
+                      key={date}
+                      className="flex justify-between p-2 bg-blackOlive text-floralWhite rounded-lg shadow text-xl"
+                    >
+                      <span>Date: {date}</span>
+                      <span className="font-semibold">Score: {score as number}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </>
         )}
       </div>
-    </div>
-  );
-};
+    );
+  }    
 
 export default ProfilePage;
