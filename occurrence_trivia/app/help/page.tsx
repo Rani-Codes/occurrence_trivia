@@ -1,9 +1,17 @@
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+
+
+
 const page = () => {
   return (
     <div>
       <div className="flex flex-col justify-center items-center">
         <h1 className="text-3xl font-bold">Help Page</h1>
-        <h4 className="font-medium">This help page includes a tutorial and a FAQ section</h4>
       </div>
       <div className="flex flex-col justify-center items-center w-full my-4">
         <div className="w-10/12">
@@ -44,7 +52,7 @@ const page = () => {
           </div>
 
           {/* Images Section */}
-          <div className="my-6">
+          <div className="my-4">
             <h2 className="text-xl font-bold text-center">Tutorial Examples</h2>
             <div className="grid grid-cols-2 gap-4 mt-4">
 
@@ -92,10 +100,87 @@ const page = () => {
 
           {/* FAQ Section */}
           <div className="my-4">
-            <h2 className="text-xl font-bold">FAQ</h2>
-            <p>FAQ content goes here...</p>
+          <h2 className="text-xl font-bold text-center">FAQ</h2>
+
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-1">
+                <AccordionTrigger className="text-lg">How does the leaderboard work?</AccordionTrigger>
+                <AccordionContent className="text-base">
+                  The leaderboard displays the top 10 highest scores from all users who complete the that 
+                  day's challenge. It is there to congratulate those who scored highly.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-2">
+                <AccordionTrigger className="text-lg">Can I retry the daily challenge?</AccordionTrigger>
+                <AccordionContent className="text-base">
+                  No, you can only attempt the daily challenge once per day. Your score will be recorded,
+                   and you will have to wait for the next day's challenge.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-3">
+                <AccordionTrigger className="text-lg">What happens if I close the game or my browser crashes?</AccordionTrigger>
+                <AccordionContent className="text-base">
+                  Don't worry! If your session is interrupted, you will be able to return to the challenge and complete 
+                  it again. As long as you haven't seen your total score you will be able to complete the challenge again.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-4">
+                <AccordionTrigger className="text-lg">How do I unlock new challenges?</AccordionTrigger>
+                <AccordionContent className="text-base">
+                  A new challenge becomes available every day. You can participate in the daily challenge once per day.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-5">
+                <AccordionTrigger className="text-lg">Can I view my previous scores?</AccordionTrigger>
+                <AccordionContent className="text-base">
+                  Yes, you can track your past scores in your profile under the "Score History" section.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-6">
+                <AccordionTrigger className="text-lg">What is the 'fake photo' feature?</AccordionTrigger>
+                <AccordionContent className="text-base">
+                  This feature allows you to guess if a photo is out of place in the daily challenge theme. 
+                  Guessing correctly awards you maximum points, while guessing incorrectly results in zero points for that image.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-7">
+                <AccordionTrigger className="text-lg">How do hints help me?</AccordionTrigger>
+                <AccordionContent className="text-base">
+                  Hints provide useful information about the day's challenge theme, helping you make more accurate guesses.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-8">
+                <AccordionTrigger className="text-lg">Why isn't my score showing on the leaderboard?</AccordionTrigger>
+                <AccordionContent className="text-base">
+                  Only the top 10 scores are shown on the leaderboard. If your score is below that, it won't be displayed.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
 
+          {/* Bugs & Features Section */}
+          <div className="my-20 text-center">
+            <h2 className="text-xl font-bold">Feedback</h2>
+            <h4 className="font-medium text-lg">Found a bug or have an idea for a new feature? Click the button below to let me know.</h4>
+            
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSdihQ4puFyMDeMRGhS2QK5x5lKGR9ykzJx_6NeBTTdZShwTEQ/viewform?usp=sf_link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="mt-2 bg-flame hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">
+                Submit Feedback
+              </button>
+            </a>
+
+          </div>
 
         </div>
       </div>
