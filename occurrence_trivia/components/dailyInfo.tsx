@@ -32,7 +32,7 @@ const DailyInfo = ({ dayChosen, isHintOpen, setIsHintOpen }: DailyInfoProps) => 
                             {daily ? (
                                 <div className="text-center text-eerieBlack flex flex-col gap-2">
                                     {daily.topic ? (
-                                        <h3>The topic for today is <span className="bg-yellow-300 p-1 rounded-lg font-semibold">{daily.topic}</span></h3>
+                                        <h3>Topic: <span className="bg-yellow-300 p-1 rounded-lg font-semibold">{daily.topic}</span></h3>
                                     ) : (
                                         <h3>The topic for today has not been specified.</h3>
                                     )}
