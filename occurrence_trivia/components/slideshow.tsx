@@ -127,8 +127,8 @@ const SlideShow = ({ userId, daily, dayChosen }: { userId: string, daily: DailyC
 
   if (!canAttempt) {
     return (
-      <div className="text-center text-lg mt-4">
-        <h1 className="text-2xl">That's all folks!</h1>
+      <div className="text-center text-base flex flex-col gap-2 sm:text-lg mt-4">
+        <h1 className="text-xl sm:text-2xl">That's all folks!</h1>
         <h2>You've completed today's challenge.</h2>
         <h3>Come back tomorrow for a new challenge with a new leaderboard! 🔥</h3>
         <h4>See you there! 👋</h4>
@@ -155,19 +155,19 @@ const SlideShow = ({ userId, daily, dayChosen }: { userId: string, daily: DailyC
 
       {isComplete && (
         <>
-          <h3 className="mt-4 text-lg">You have finished the slideshow! All your guesses have been saved.</h3>
-          <div className="w-8/12">
+          <h3 className="mt-4 text-center text-base sm:text-lg">You have finished the slideshow! All your guesses have been saved.</h3>
+          <div className="w-10/12 sm:w-8/12">
             <ul>
               {guesses.map((guess, index) => (
                 <li key={index} className="mt-2">
                   <Score guess={guess} index={index} daily={daily} maxScore={daily.maxScore} />
                 </li>
               ))}
-              <h2 className="text-2xl text-center py-4">You earned <b>{totalScore}</b> out of {daily.images.length * daily.maxScore} possible points</h2>
+              <h2 className="text-lg sm:text-2xl text-center py-4">You earned <b>{totalScore}</b> out of {daily.images.length * daily.maxScore} possible points</h2>
             </ul>
 
             <div className="flex flex-col justify-center items-center">
-              <h3 className="mt-4 text-lg">Wanna see if you made it onto the daily leaderboard?</h3>
+              <h3 className="mt-4 text-center mb-2 sm:mb-0 text-base sm:text-lg">Wanna see if you made it onto the daily leaderboard?</h3>
               <Link href={'/leaderboard'}>
                 <button
                     className="bg-blackOlive text-floralWhite py-2 px-4 rounded-lg hover:bg-eerieBlack hover:shadow-[0_0_15px_5px_#808080] transition-shadow duration-300"

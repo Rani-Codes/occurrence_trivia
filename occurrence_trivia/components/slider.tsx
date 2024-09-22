@@ -38,7 +38,7 @@ export default function CustomSlider({ lowerBound, upperBound, lowerName, upperN
   };
 
   return (
-    <Box sx={{ width: 3/12 }}>
+    <Box className="w-10/12 sm:w-6/12 lg:w-5/12 xl:w-3/12"> {/* Tailwind classes for responsive width */}
       <Slider
         marks={marks}
         step={1}

@@ -41,8 +41,8 @@ const DailyInfo = ({ dayChosen, isHintOpen, setIsHintOpen }: DailyInfoProps) => 
                                         <p className="text-blue-600 font-semibold">Hint: {daily.hint}</p>
                                     )}
 
-                                    <p>Time period for today's images: <span className="font-semibold"> {daily.timePeriod[0]} - {daily.timePeriod[1]} </span></p>
-                                    <p>Choose a month and year for each image or select fake if you believe the image doesn't belong in this category.</p>
+                                    <p className="text-xs sm:text-sm">Time period for today's images: <span className="font-semibold"> {daily.timePeriod[0]} - {daily.timePeriod[1]} </span></p>
+                                    <p className="text-xs sm:text-sm">Choose a month and year for each image or select fake if you believe the image doesn't belong in this category.</p>
                                 </div>
                             ) : (
                                 <div className="text-center text-eerieBlack">

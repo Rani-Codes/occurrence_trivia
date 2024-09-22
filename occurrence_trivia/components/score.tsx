@@ -44,15 +44,15 @@ interface ScoreProps {
   
     return (
 <div className={`mt-2 ${index % 2 === 0 ? 'bg-blackOlive' : 'bg-eerieBlack'} text-floralWhite p-4 rounded flex flex-col justify-center items-center`}>
-        <h1 className="text-lg pb-2">
+        <h1 className="text-center text-base sm:text-lg pb-2">
           You <span className="font-bold">{wasRealGuessCorrect ? <span className="text-green-500">correctly</span> : <span className="text-red-500">incorrectly</span>}</span> guessed
            image {index + 1} was{" "}
           {guess.real ? "real" : "fake"}
         </h1>
-        <div className="flex w-full justify-between">
-          <img src={daily.images[index].url} alt={`Image ${index + 1}`} className="w-20 h-20 object-cover rounded mb-4" />
+        <div className="flex flex-col justify-center items-center sm:flex-row w-full sm:justify-between">
+          <img src={daily.images[index].url} alt={`Image ${index + 1}`} className="w-20 h-20 object-cover rounded mb-2 sm:mb-4" />
 
-          <div className="">
+          <div className="text-center mb-2 sm:mb-4 text-sm sm:text-base">
             <h3 className="underline">Your Guess</h3>
             <h5>Type:  <span className="font-semibold">{guess.real ? 'Real' : 'Fake'}</span></h5>
             {guess.real ? (
@@ -62,7 +62,7 @@ interface ScoreProps {
             )}
           </div>
 
-          <div className="">
+          <div className="text-center mb-2 sm:mb-4 text-sm sm:text-base">
             <h3 className="underline">Correct Answer</h3>
             <h5>Type:  <span className="font-semibold">{correctReal ? 'Real' : 'Fake'}</span></h5>
             {correctReal ? (
@@ -71,8 +71,9 @@ interface ScoreProps {
               <></>
             )}
           </div>
+
         </div>
-        <h1 className="text-lg">You earned <span className="font-semibold bg-flame p-1 rounded">{points}</span> points on this image {' '}
+        <h1 className="text-center text-base sm:text-lg pt-2 sm:pt-0">You earned <span className="font-semibold bg-flame p-1 rounded">{points}</span> points on this image {' '}
         {points >= (maxScore * 3 / 4) ? scoreEmojis[2] : points >= (maxScore * 1 / 2) ? scoreEmojis[1] : scoreEmojis[0]}
         </h1>
       </div>
