@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useUser } from "@/hooks/useUser"; // Assuming you have the custom hook here
 import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { parse } from "date-fns";
 
 const ProfilePage = () => {
   const { user } = useUser();
@@ -69,13 +70,14 @@ const ProfilePage = () => {
 
 
   // Function to parse and sort dates from latest to earliest
-  const sortedScores = profileData?.dailyScores
-    ? Object.entries(profileData.dailyScores).sort(([dateA], [dateB]) => {
-        const parsedDateA = new Date(dateA);
-        const parsedDateB = new Date(dateB);
-        return parsedDateB.getTime() - parsedDateA.getTime(); // Sort latest to earliest
-      })
-    : [];
+    const sortedScores = profileData?.dailyScores
+  ? Object.entries(profileData.dailyScores).sort(([dateA], [dateB]) => {
+      const parsedDateA = parse(dateA, "MM-dd-yyyy", new Date());
+      const parsedDateB = parse(dateB, "MM-dd-yyyy", new Date());
+      
+      return parsedDateB.getTime() - parsedDateA.getTime(); // Sort latest to earliest
+    })
+  : [];
 
     return (
       <div className="flex flex-col items-center">
