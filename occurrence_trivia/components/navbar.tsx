@@ -31,8 +31,8 @@ export default function Navbar() {
                 </Link>
 
                 {/* Hamburger icon for mobile */}
-                <div className="md:hidden text-3xl cursor-pointer" onClick={() => setOpen(!open)}>
-                    <HamburgerMenuIcon />
+                <div className="md:hidden text-3xl w-8 h-8 cursor-pointer" onClick={() => setOpen(!open)}>
+                    <HamburgerMenuIcon className="w-full h-full" />
                 </div>
 
                 {/* Links (hidden on mobile, visible on larger screens) */}
