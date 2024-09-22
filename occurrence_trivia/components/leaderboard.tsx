@@ -49,24 +49,24 @@ const Leaderboard = ({ dayChosen }: { dayChosen: string }) => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-center mt-8 mb-4">Leaderboard for {dayChosen}</h2>
+      <h2 className="text-xl sm:text-2xl font-bold text-center mt-8 mb-4">Leaderboard for {dayChosen}</h2>
       <div className="flex flex-col justify-center items-center w-full">
-        <ul className="w-8/12">
+        <ul className="w-11/12 sm:w-8/12">
 
-            <div className="flex items-center justify-between px-2 text-xl underline">
+            <div className="flex items-center justify-between px-2 text-base sm:text-xl underline">
                 <span className="font-semibold">Rank</span>
                 <span className="font-semibold">User</span>
-                <span className="font-bold">Score</span>
+                <span className="font-semibold">Score</span>
             </div>
 
             {leaderboard.map((entry, index) => (
             <li key={index} className="flex items-center justify-between p-2 bg-timberwolf text-eerieBlack rounded-lg my-2">
-                <span className="font-bold text-2xl">{place[index]}</span>
+                <span className="font-bold text-base sm:text-2xl">{place[index]}</span>
                 <div className="flex items-center">
                 <img src={entry.profilePicture} alt={`${entry.username}'s profile`} className="w-12 h-12 rounded-full mr-4" />
-                <span className="font-semibold text-xl">{entry.username}</span>
+                <span className="font-semibold text-sm sm:text-xl">{entry.username}</span>
                 </div>
-                <span className="font-bold text-xl">{entry.score}</span>
+                <span className="font-bold text-sm sm:text-xl">{entry.score}</span>
             </li>
             ))}
         </ul>
