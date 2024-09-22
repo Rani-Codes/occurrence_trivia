@@ -59,9 +59,9 @@ const SetUsername = () => {
   
 
   return (
-    <div className="flex flex-col items-center justify-center my-10">
-      <h1 className="text-xl">Hi there! It looks like you don't have a username yet, please enter the username you would like to have. </h1>
-      <h4 className="underline">Note: This username will be visible to all players if you make it on the leaderboard.</h4>
+    <div className="flex flex-col items-center justify-center p-4 my-10">
+      <h1 className="text-base text-center pb-2 sm:text-xl">Hi there! It looks like you don't have a username yet, please enter a username you would like to have. </h1>
+      <h4 className="underline text-sm sm:text-base text-center ">Note: This username will be visible to all players if you make it on to the leaderboard.</h4>
       <h2 className="mt-10">Set a <em>unique</em> username</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -75,7 +75,7 @@ const SetUsername = () => {
           Submit
         </button>
       </form>
-      {error && <p className="text-red-500 mt-2">{error}</p>}
+      {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
     </div>
   );
 };
