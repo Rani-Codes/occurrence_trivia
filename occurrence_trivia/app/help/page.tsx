@@ -100,7 +100,7 @@ const page = () => {
 
           {/* FAQ Section */}
           <div className="my-4">
-          <h2 className="text-xl font-bold text-center pt-12 sm:pt-0">FAQ</h2>
+          <h2 className="text-xl font-bold text-center mt-12  lg:mt-16">FAQ</h2>
 
             <Accordion type="single" collapsible>
               <AccordionItem value="item-1">

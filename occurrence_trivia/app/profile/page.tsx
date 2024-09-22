@@ -39,27 +39,27 @@ const ProfilePage = () => {
 
     return (
       <div className="flex flex-col items-center">
-        <h1 className="text-3xl font-bold">Welcome back, {placeholderProfile.username}</h1>
+        <h1 className="text-xl sm:text-3xl font-bold">Welcome back, {placeholderProfile.username}</h1>
         <img
           src={placeholderProfile.profilePicture}
           alt="Profile"
           className="w-32 h-32 rounded-full mt-4"
         />
 
-        <div className="mt-6 w-8/12">
-          <h2 className="text-2xl font-semibold">Your Daily Challenge Scores</h2>
-          <ul className="mt-4 space-y-2">
+        <div className="mt-6 w-10/12 sm:w-8/12">
+          <h2 className="text-lg sm:text-2xl font-semibold text-center sm:text-left">Your Daily Challenge Scores</h2>
+          <ul className="mt-2 sm:mt-4 space-y-2">
             {Object.entries(placeholderProfile.dailyScores).map(([date, score]) => (
               <li
                 key={date}
-                className="flex justify-between p-2 bg-blackOlive text-floralWhite rounded-lg shadow text-xl"
+                className="flex justify-between p-2 bg-blackOlive text-floralWhite rounded-lg shadow text-base sm:text-xl"
               >
                 <span>Date: {date}</span>
                 <span className="font-semibold">Score: {score}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-sm italic">
+          <p className="mt-4 text-sm text-center sm:text-left italic">
             Sign in to track your real scores and participate in daily challenges!
           </p>
         </div>
@@ -81,7 +81,7 @@ const ProfilePage = () => {
       <div className="flex flex-col items-center">
         {profileData && (
           <>
-            <h1 className="text-3xl font-bold">Welcome back, {profileData?.username}</h1>
+            <h1 className="text-xl sm:text-3xl font-bold">Welcome back, {profileData?.username}</h1>
     
             {profileData?.profilePicture && (
               <img
@@ -92,13 +92,13 @@ const ProfilePage = () => {
             )}
     
             {sortedScores.length > 0 && (
-              <div className="mt-6 w-8/12">
-                <h2 className="text-2xl font-semibold">Your Daily Challenge Scores</h2>
-                <ul className="mt-4 space-y-2">
+              <div className="mt-6 w-10/12 sm:w-8/12">
+                <h2 className="text-lg sm:text-2xl font-semibold text-center sm:text-left">Your Daily Challenge Scores</h2>
+                <ul className="mt-2 sm:mt-4 space-y-2">
                   {sortedScores.map(([date, score]) => (
                     <li
                       key={date}
-                      className="flex justify-between p-2 bg-blackOlive text-floralWhite rounded-lg shadow text-xl"
+                      className="flex justify-between p-2 bg-blackOlive text-floralWhite rounded-lg shadow text-base sm:text-xl"
                     >
                       <span>Date: {date}</span>
                       <span className="font-semibold">Score: {score as number}</span>
