@@ -17,7 +17,7 @@ const DailyGame = () => {
     // Set the current date as dayChosen when the component mounts
     useEffect(() => {
         const currentDate = getCurrentDateString();
-        setDayChosen('09-28-2024');
+        setDayChosen(currentDate);
         console.log("Setting dayChosen to:", currentDate);  // For debugging
     }, []);
 
