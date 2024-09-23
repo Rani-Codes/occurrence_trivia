@@ -20,6 +20,30 @@ export const createDailyChallengeDocument = async (docId: string) => {
             real: true,
             url: "https://picsum.photos/200",
             year: 1925,
+        },
+        {
+            month: 4,
+            real: true,
+            url: "https://picsum.photos/200",
+            year: 1925,
+        },
+        {
+            month: 4,
+            real: true,
+            url: "https://picsum.photos/200",
+            year: 1925,
+        },
+        {
+            month: 4,
+            real: true,
+            url: "https://picsum.photos/200",
+            year: 1925,
+        },
+        {
+            month: 4,
+            real: true,
+            url: "https://picsum.photos/200",
+            year: 1925,
         }
     ];
 
